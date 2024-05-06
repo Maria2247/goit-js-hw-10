@@ -12,14 +12,8 @@ function createPromise(delay) {
     setTimeout(() => {
       if (valueFulfilled.checked) {
         fulfilled(`✅ Fulfilled promise in ${delay}ms`);
-        iziToast.show({
-          message: `✅ Fulfilled promise in ${delay}ms`,
-        });
       } else if (valueRejected.checked) {
         rejected(`❌ Rejected promise in ${delay}ms`);
-        iziToast.error({
-          message: `❌ Rejected promise in ${delay}ms`,
-        });
       }
     }, delay);
   });
@@ -31,9 +25,15 @@ function onSubmitForm(event) {
   console.log('delay: ', delay);
   createPromise(delay)
     .then(fulfilled => {
+      iziToast.show({
+        message: `✅ Fulfilled promise in ${delay}ms`,
+      });
       console.log(fulfilled);
     })
     .catch(rejected => {
+      iziToast.error({
+        message: `❌ Rejected promise in ${delay}ms`,
+      });
       console.log(rejected);
     })
     .finally(() => {
